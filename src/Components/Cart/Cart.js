@@ -19,6 +19,7 @@ const Cart = ({cart}) => {
             <p>Total shipping : ${shipping}</p>
             <p>Tax : ${tax}</p>
             <h5>Grand Total : ${grandTotal}</h5>
+            {cart.children}
         </div>
     );
 };
