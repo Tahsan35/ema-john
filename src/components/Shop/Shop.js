@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useLoaderData } from 'react-router-dom';
-import { addToDb, getStoredCart } from '../../utilities/fakedb';
+import { Link, useLoaderData } from 'react-router-dom';
+import { addToDb, deleteShoppingCart, getStoredCart } from '../../utilities/fakedb';
 import Cart from '../Cart/Cart';
 import Product from '../Product/Product';
 import './Shop.css';
@@ -10,6 +10,11 @@ const Shop = () => {
     // const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
 
+    const clearCart = () => {
+        setCart([]);
+        deleteShoppingCart();
+    }
+
     // useEffect(() => {
     //     fetch('products.json')
     //         .then(res => res.json())
@@ -18,6 +23,7 @@ const Shop = () => {
     useEffect(() => {
         const storedCart = getStoredCart();
         const savedCart = [];
+
         for (const id in storedCart) {
             const addedProduct = products.find(product => product.id === id);
             if (addedProduct) {
@@ -28,8 +34,9 @@ const Shop = () => {
         }
         setCart(savedCart);
     }, [products])
+
     const handleAddToCart = (selectedProduct) => {
-        console.log(selectedProduct);
+        // console.log(selectedProduct);
         let newCart = [];
         const exists = cart.find(product => product.id === selectedProduct.id);
         if (!exists) {
@@ -58,7 +65,11 @@ const Shop = () => {
                 }
             </div>
             <div className="cart-container">
-                <Cart cart={cart}></Cart>
+                <Cart clearCart={clearCart} cart={cart}>
+                    <Link to="/order">
+                        <button>Review Order</button>
+                    </Link>
+                </Cart>
             </div>
         </div>
     );
