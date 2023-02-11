@@ -6,6 +6,10 @@ import Shop from './components/Shop/Shop';
 import Orders from './components/Orders/Orders';
 import Inventory from './components/Inventory/Inventory';
 import { productsAndCartLoader } from './loaders/productsAndCartLoader';
+import Login from './components/Login/Login';
+import Signup from './components/Signup/Signup';
+import RequireAuth from './RequireAuth/RequireAuth';
+import Shipping from './components/Shipping/Shipping';
 
 function App() {
   const router = createBrowserRouter([
@@ -27,11 +31,23 @@ function App() {
       },
       {
         path: "inventory",
-        element: <Inventory />
+        element: <RequireAuth><Inventory /></RequireAuth>
+      },
+      {
+        path: "shipping",
+        element: <RequireAuth><Shipping /></RequireAuth>
       },
       {
         path: "about",
         element: <About />
+      },
+      {
+        path: "login",
+        element: <Login />
+      },
+      {
+        path: "signup",
+        element: <Signup />
       }
       ]
     },
